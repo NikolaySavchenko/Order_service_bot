@@ -38,26 +38,31 @@ class NumberLevel(admin.ModelAdmin):
 @admin.register(Form)
 class Form(admin.ModelAdmin):
     fields = ('form', 'price')
+    list_display = ('form', 'price')
 
 
 @admin.register(Topping)
 class Topping(admin.ModelAdmin):
     fields = ('topping', 'price')
+    list_display = ('topping', 'price')
 
 
 @admin.register(Berry)
 class Berry(admin.ModelAdmin):
     fields = ('berry', 'price')
+    list_display = ('berry', 'price')
 
 
 @admin.register(Decor)
 class Decor(admin.ModelAdmin):
     fields = ('decor', 'price')
+    list_display = ('decor', 'price')
 
 
 @admin.register(Delivery)
 class Delivery(admin.ModelAdmin):
     fields = ('courier', 'order', 'delivery_time')
+    list_display = ('courier', 'order', 'delivery_time')
 
 
 
