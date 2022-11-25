@@ -22,22 +22,23 @@ class Courier(models.Model):
 class Order(models.Model):
     client = models.ForeignKey('Client', on_delete=models.CASCADE)
     date_time = models.DateField('Дата заказа', auto_now_add=True, null=True)
-    cake = models.ForeignKey('Cake', default='Торт', on_delete=models.CASCADE)
+    cake = models.ForeignKey('Cake', on_delete=models.CASCADE)
     comment = models.TextField('Комментарий к заказу', max_length=200, null=True, blank=True)
     delivery_address = models.CharField('Адрес доставки', max_length=200)
     delivery_date = models.DateField('Дата доставки')
-    delivery_time = models.DateField('Желаемое время доставки')
+    delivery_time = models.TimeField('Желаемое время доставки', )
+
     total = models.DecimalField(verbose_name='Всего', max_digits=20,  decimal_places=2, default=0)
 
 
 class Cake(models.Model):
     name = models.CharField(verbose_name='Название торта', max_length=200, default='Торт')
     price = models.DecimalField(verbose_name='Цена', max_digits=20,  decimal_places=2, default=0)
-    level = models.ForeignKey('NumberLevel', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
+    level = models.ForeignKey('Level', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
     form = models.ForeignKey('Form', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
     topping = models.ForeignKey('Topping', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
-    berry = models.ForeignKey('Berry', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
-    decor = models.ForeignKey('Decor', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
+    berry = models.ManyToManyField('Berry')
+    decor = models.ManyToManyField('Decor')
 
     class Meta:
         verbose_name = 'Торт'
@@ -47,13 +48,12 @@ class Cake(models.Model):
         return self.name
 
 
-class NumberLevel(models.Model):
+class Level(models.Model):
     level = models.CharField(verbose_name='Уровни', max_length=50)
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
-    # cake = models.ForeignKey('Cake', verbose_name='Торт', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.level
+        return f'{self.level} - {self.price} руб.'
 
 
 class Form(models.Model):
@@ -61,7 +61,7 @@ class Form(models.Model):
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.form
+        return f'{self.form} - {self.price} руб.'
 
 
 class Topping(models.Model):
@@ -69,23 +69,25 @@ class Topping(models.Model):
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.topping
+        return f'{self.topping} - {self.price} руб.'
 
 
 class Berry(models.Model):
     berry = models.CharField(verbose_name='Ягоды', max_length=50)
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
+    # cake = models.ManyToManyField('Cake', verbose_name='Торт')
 
     def __str__(self):
-        return self.berry
+        return f'{self.berry} - {self.price} руб.'
 
 
 class Decor(models.Model):
     decor = models.CharField(verbose_name='Декор', max_length=50)
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)
+    # cake = models.ManyToManyField('Cake', verbose_name='Торт')
 
     def __str__(self):
-        return self.decor
+        return f'{self.decor} - {self.price} руб.'
 
 
 class Delivery(models.Model):

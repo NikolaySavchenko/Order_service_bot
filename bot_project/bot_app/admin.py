@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Client, Courier, Order, Cake, Delivery, NumberLevel, Form, Topping, Berry, Decor
+from .models import Client, Courier, Order, Cake, Delivery, Level, Form, Topping, Berry, Decor
 
 
 # Register your models here.
@@ -19,18 +19,18 @@ class Courier(admin.ModelAdmin):
 
 @admin.register(Order)
 class Order(admin.ModelAdmin):
-    fields = ('client', 'cake', 'comment', 'delivery_address', 'delivery_date', 'delivery_time', 'total')
-    list_display = ('client', 'cake', 'comment', 'delivery_address', 'delivery_date', 'delivery_time', 'total')
+    fields = ('client', 'cake','delivery_address', 'delivery_date', 'delivery_time', 'total', 'comment')
+    list_display = ('client', 'cake', 'delivery_address', 'delivery_date', 'delivery_time', 'total', 'comment')
 
 
 @admin.register(Cake)
 class Cake(admin.ModelAdmin):
-    fields = ('name', 'price', 'level', 'form', 'topping', 'berry', 'decor')
-    list_display = ('name', 'level', 'form', 'topping', 'berry', 'decor', 'price')
+    fields = ('name', 'level', 'form', 'topping', 'berry', 'decor', 'price')
+    list_display = ('name', 'level', 'form', 'topping', 'price')
 
 
-@admin.register(NumberLevel)
-class NumberLevel(admin.ModelAdmin):
+@admin.register(Level)
+class Level(admin.ModelAdmin):
     fields = ('level', 'price')
     list_display = ('level', 'price')
 
