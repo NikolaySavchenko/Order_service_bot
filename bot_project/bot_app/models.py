@@ -33,12 +33,12 @@ class Order(models.Model):
 
 class Cake(models.Model):
     name = models.CharField(verbose_name='Название торта', max_length=200, default='Торт')
+    level = models.ForeignKey('Level', on_delete=models.DO_NOTHING, null=True, blank=True)
+    form = models.ForeignKey('Form', on_delete=models.DO_NOTHING, null=True, blank=True)
+    topping = models.ForeignKey('Topping', on_delete=models.DO_NOTHING, null=True, blank=True)
+    berry = models.ManyToManyField('Berry', blank=True, null=True)
+    decor = models.ManyToManyField('Decor', blank=True, null=True)
     price = models.DecimalField(verbose_name='Цена', max_digits=20,  decimal_places=2, default=0)
-    level = models.ForeignKey('Level', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
-    form = models.ForeignKey('Form', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
-    topping = models.ForeignKey('Topping', on_delete=models.DO_NOTHING, null=True, blank=True, default=0)
-    berry = models.ManyToManyField('Berry')
-    decor = models.ManyToManyField('Decor')
 
     class Meta:
         verbose_name = 'Торт'
