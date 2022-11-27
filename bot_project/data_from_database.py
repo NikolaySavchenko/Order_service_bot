@@ -27,3 +27,13 @@ def get_form():
     return cake_forms
 
 
+def get_toppings():
+    toppings = Topping.objects.all().values()
+    cake_toppings = []
+    for topping in toppings:
+        form = topping.get('topping')
+        price = topping.get('price')
+        cake_toppings.append(f'{form} - {price} руб.')
+    return cake_toppings
+
+
