@@ -6,7 +6,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils import executor
 from environs import Env
 
-from core import get_levels, get_form
+from data_from_database import get_levels, get_form
 
 
 telegram_token = '5945463620:AAGnF8c_DSNkx60EzEqI2riWeqVMA0gecDg'

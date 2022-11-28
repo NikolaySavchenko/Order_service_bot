@@ -2,6 +2,7 @@ import os
 import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bot_project.settings')
+
 django.setup()
 
 from bot_app.models import Client, Level, Form, Berry, Courier, Decor, Delivery,  Order, Topping, Cake
@@ -36,4 +37,23 @@ def get_toppings():
         cake_toppings.append(f'{form} - {price} руб.')
     return cake_toppings
 
+
+def get_berry():
+    berries = Berry.objects.all().values()
+    cake_berry = []
+    for berr in berries:
+        berry = berr.get('berry')
+        price = berr.get('price')
+        cake_berry.append(f'{berry} - {price} руб.')
+    return cake_berry
+
+
+def get_decor():
+    decors = Decor.objects.all().values()
+    cake_decor = []
+    for dec in decors:
+        decor = dec.get('decor')
+        price = dec.get('price')
+        cake_decor.append(f'{decor} - {price} руб.')
+    return cake_decor
 

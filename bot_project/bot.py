@@ -48,7 +48,7 @@ async def main():
     await set_commands(bot)
 
     # Запуск поллинга
-    # await dp.skip_updates()  # пропуск накопившихся апдейтов (необязательно)
+    await dp.skip_updates()  # пропуск накопившихся апдейтов (необязательно)
     await dp.start_polling()
 
 
